@@ -27,19 +27,9 @@ NOTE: If you need to batch download entire cataloques at once, check out my othe
 3. Click the "Download 3D" button to download the GLB file of the 3D model.
 4. The file will be saved with a name in the format: `[Product Name] - [Color].glb`
 
-### Important Note on Ad-blockers
-
-**This script does not work correctly with ad-blocking extensions such as uBlock Origin, Privacy Badger, or other similar tools.** These extensions can interfere with the script's functionality. To use this script:
-
-1. Temporarily disable any ad-blocking extensions for the IKEA website.
-2. Refresh the page after disabling the extensions.
-3. Re-enable your ad-blocking extensions after downloading if desired.
-
-If you experience any issues with the download button not appearing or not functioning correctly, please check that all ad-blocking extensions are disabled and refresh the page.
-
 ## Troubleshooting
 
-- If the download button doesn't appear, ensure you're on a product page with a 3D model available and check that all ad-blocking extensions are disabled and refresh the page.
+- If the download button doesn't appear, ensure you're on a product page with a 3D model available and refresh the page.
 
 ## Disclaimer
 
