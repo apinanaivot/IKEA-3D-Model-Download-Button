@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         IKEA 3D Model Downloader
 // @namespace    http://tampermonkey.net/
-// @version      1.0
+// @version      1.2
 // @description  Adds a download button for 3D models on IKEA product pages
 // @match        https://*.ikea.com/*/p/*
 // @grant        none
@@ -10,11 +10,35 @@
 (function() {
     'use strict';
 
+    let attemptCount = 0;
+    const MAX_ATTEMPTS = 7; // 2 short delays + 5 long delays
+    const SHORT_RETRY_INTERVAL = 1000; // 1 seconds
+    const LONG_RETRY_INTERVAL = 3000; // 3 seconds
+
     function addDownloadButton() {
         const viewIn3dButton = document.querySelector('button[aria-label*="3D"]');
-        if (!viewIn3dButton) return;
+        if (!viewIn3dButton) {
+            attemptCount++;
+            if (attemptCount < MAX_ATTEMPTS) {
+                const delay = attemptCount <= 2 ? SHORT_RETRY_INTERVAL : LONG_RETRY_INTERVAL;
+                console.log(`Attempt ${attemptCount}: 3D button not found. Retrying in ${delay/1000} seconds...`);
+                setTimeout(addDownloadButton, delay);
+            } else {
+                console.log("Max attempts reached. 3D button not found.");
+            }
+            return;
+        }
+
+        // Reset attempt count if button is found
+        attemptCount = 0;
+
+        if (document.getElementById('ikea-3d-download-button')) {
+            console.log("Download button already exists.");
+            return;
+        }
 
         const downloadButton = document.createElement('button');
+        downloadButton.id = 'ikea-3d-download-button';
         downloadButton.className = viewIn3dButton.className;
         downloadButton.type = 'button';
         downloadButton.style.marginLeft = '10px';
@@ -45,6 +69,7 @@
         downloadButton.addEventListener('click', downloadGLB);
 
         viewIn3dButton.parentNode.insertBefore(downloadButton, viewIn3dButton.nextSibling);
+        console.log("Download button added successfully.");
     }
 
     function downloadGLB() {
@@ -103,8 +128,8 @@
         }
     }
 
-    // Run the script when the page is fully loaded
-    window.addEventListener('load', addDownloadButton);
+    // Initial attempt to add the download button
+    addDownloadButton();
 
     // Also run the script when the URL changes (for single-page applications)
     let lastUrl = location.href;
@@ -112,6 +137,7 @@
         const url = location.href;
         if (url !== lastUrl) {
             lastUrl = url;
+            attemptCount = 0; // Reset attempt count on URL change
             addDownloadButton();
         }
     }).observe(document, { subtree: true, childList: true });
