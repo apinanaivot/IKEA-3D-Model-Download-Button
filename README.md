@@ -29,7 +29,7 @@ UPDATE: 28.11.2025 - Works on latest IKEA website
 
 ## Troubleshooting
 
-- If the download button doesn't appear, ensure you're on a product page with a 3D model available and refresh the page.
+- If the download button doesn't appear, ensure you're on a product page with a 3D model available and refresh the page. You can also try pressing Ctrl + Alt + D if the download button doesn't appear.
 - If using Chrome, try turning on developer mode
 - If nothing works, create a [bug report here](https://github.com/apinanaivot/IKEA-3D-Model-Download-Button/issues) and I'll try to fix it as soon as possible
 
@@ -47,3 +47,4 @@ This tool is designed for personal home planning and visualization. Always respe
    <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=apinanaivot/IKEA-3D-Model-Download-Button&type=Date" />
  </picture>
 </a>
+
