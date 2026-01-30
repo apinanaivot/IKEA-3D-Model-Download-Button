@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         IKEA 3D Model Downloader
 // @namespace    http://tampermonkey.net/
-// @version      2.2
+// @version      2.2.1
 // @description  Adds a download button for 3D models on IKEA product pages
 // @match        https://*.ikea.com/*/p/*
 // @match        https://*.ikea.com/*/*/p/*
@@ -90,7 +90,7 @@ function setupDownloadButton(vBtn) {
     dBtn.style.marginLeft = '10px';
 
     const bIn = document.createElement('span');
-    bIn.className = `${p}-btn__inner`;
+    bIn.className = `${p}-typography-label-s ${p}-btn__inner`;
 
     const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
     svg.setAttribute('viewBox', '0 0 24 24');
