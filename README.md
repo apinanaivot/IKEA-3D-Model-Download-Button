@@ -11,7 +11,7 @@ UPDATE: 30.01.2026 - Bugfix
 ## Features
 
 - Adds a "Download 3D" button next to the "View in 3D" button on IKEA product pages
-- Works on all language versions of IKEA websites
+- Works across all language versions of IKEA websites
 - Automatically names downloaded files using the product name and color
 
 ## Installation
@@ -19,6 +19,7 @@ UPDATE: 30.01.2026 - Bugfix
 1. Install the [Tampermonkey](https://www.tampermonkey.net/) browser extension for your browser.
 2. Click [this link](https://github.com/apinanaivot/IKEA-3D-Model-Download-Button/raw/refs/heads/main/ikea-3d-model-downloader.user.js) to install or update this script, or alternatively create a new script in Tampermonkey and paste the contents of `ikea-3d-model-downloader.user.js` into it.
 3. Save the script and ensure it's enabled in Tampermonkey.
+4. If you are using a chromium broser, like Chrome, Edge or Opera, turn on developer mode in the browser settings.
 
 ## Usage
 
@@ -30,7 +31,7 @@ UPDATE: 30.01.2026 - Bugfix
 ## Troubleshooting
 
 - If the download button doesn't appear, ensure you're on a product page with a 3D model available and refresh the page. You can also try pressing Ctrl + Alt + D if the download button doesn't appear.
-- If using Chrome, try turning on developer mode
+- If using Chrome, turn on developer mode
 - If nothing works, create a [bug report here](https://github.com/apinanaivot/IKEA-3D-Model-Download-Button/issues) and I'll try to fix it as soon as possible
 
 ## Disclaimer
@@ -47,5 +48,6 @@ This tool is designed for personal home planning and visualization. Always respe
    <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=apinanaivot/IKEA-3D-Model-Download-Button&type=Date" />
  </picture>
 </a>
+
 
 
