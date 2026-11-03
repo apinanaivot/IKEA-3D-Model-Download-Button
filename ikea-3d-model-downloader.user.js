@@ -206,7 +206,7 @@ const tEl = document.querySelector('title'); let pN = 'ikea_product', pV = '';
 if(tEl) {
 const t = tEl.textContent.trim(); const tP = t.split(' - IKEA')[0].split(',');
 pN = tP[0].trim(); if(tP.length > 1) pV = tP[1].trim(); }
-let pId = ''; const iM = mUrl.match(/\/(\d+)_/) || mUrl.match(/\/(\d+)\//); if(iM?.[1]) pId = iM[1];
+let pId = ''; const iM = mUrl.match(/\/(\d{8})-mini\.glb/) || mUrl.match(/\/(\d+)_/) || mUrl.match(/\/(\d+)\//); if(iM?.[1]) pId = iM[1];
 let fn = pN; if(pV) fn += ' - ' + pV; if(pId) fn += ' (' + pId + ')';
 dL.download = fn.replace(/[<>:"\/\\|?*]/g, '') + '.glb';
 document.body.appendChild(dL); dL.click(); document.body.removeChild(dL);
