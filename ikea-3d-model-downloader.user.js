@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         IKEA 3D Model Downloader
 // @namespace    http://tampermonkey.net/
-// @version      2.2.1
+// @version      2.3.0
 // @description  Adds a download button for 3D models on IKEA product pages
 // @match        https://*.ikea.com/*/p/*
 // @match        https://*.ikea.com/*/*/p/*
@@ -162,7 +162,17 @@ const cUrl = window.location.href; const t = {
 for(const [k, v] of Object.entries(t)) { if(cUrl.includes(`ikea.com/${k}/`)) return v; }
 return 'Download 3D'; }
 
-function hDl(tBtn) {
+async function apiUrl() {
+const m = location.pathname.match(/^\/(\w+)\/(\w+)\/.*?-(s?\d{8})\/?$/i); if(!m) return null;
+const [, cc, lg, id] = m;
+for(const pid of [id, id.replace(/^s/i, '')]) { try {
+const r = await fetch(`https://web-api.ikea.com/${cc}/${lg}/rotera/data/model/${pid}/`);
+if(r.ok) { const j = await r.json(); if(j.modelUrl) return j.modelUrl; }
+} catch(e) {} }
+return null; }
+
+async function hDl(tBtn) {
+const a = await apiUrl(); if(a) { dl(a); return; }
 if(window.mUrls.length > 0) { dl(window.mUrls[window.mUrls.length - 1]); return; }
 const mvs = document.querySelectorAll('model-viewer');
 for(const v of mvs) {
@@ -196,7 +206,7 @@ const tEl = document.querySelector('title'); let pN = 'ikea_product', pV = '';
 if(tEl) {
 const t = tEl.textContent.trim(); const tP = t.split(' - IKEA')[0].split(',');
 pN = tP[0].trim(); if(tP.length > 1) pV = tP[1].trim(); }
-let pId = ''; const iM = mUrl.match(/\/(\d+)_/) || mUrl.match(/\/(\d+)\//); if(iM?.[1]) pId = iM[1];
+let pId = ''; const iM = mUrl.match(/\/(\d{8})-mini\.glb/) || mUrl.match(/\/(\d+)_/) || mUrl.match(/\/(\d+)\//); if(iM?.[1]) pId = iM[1];
 let fn = pN; if(pV) fn += ' - ' + pV; if(pId) fn += ' (' + pId + ')';
 dL.download = fn.replace(/[<>:"\/\\|?*]/g, '') + '.glb';
 document.body.appendChild(dL); dL.click(); document.body.removeChild(dL);
